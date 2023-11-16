@@ -52,9 +52,9 @@ class PageLogin extends StatelessWidget {
                           const SizedBox(
                             height: 30),
                     const Text("Wechat", 
-                      style: TextStyle(fontSize:  50 , fontWeight: FontWeight.bold, color: Colors.green),),
-                    const Text("Chào mừng trở lại!", 
-                      style: TextStyle(fontSize: 25,color: Colors.green , fontWeight: FontWeight.w300),),
+                       style: TextStyle(fontSize:  50 ,fontWeight: FontWeight.bold, color: Colors.green),),
+                    Text("Đăng nhập tài khoản", 
+                      style: AppConstant.textlogo,),
                       const SizedBox(
                         height: 20,
                       ),
@@ -63,7 +63,7 @@ class PageLogin extends StatelessWidget {
                         textController: _emailController, 
                         obscureText: false,
                       ),
-                        const SizedBox(height: 30,),
+                        const SizedBox(height: 10),
                       CustomTextField(
                         hintText: "Password",
                         textController: _passwordController, 

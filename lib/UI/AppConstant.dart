@@ -8,4 +8,6 @@ class AppConstant{
     fontSize: 16, color: Colors.red, fontStyle: FontStyle.italic);
   static TextStyle textlink = TextStyle(color: Colors.blue[600], 
     fontSize: 16, fontWeight: FontWeight.bold);
+  static TextStyle textlogo = GoogleFonts.lato(
+    fontSize: 30, color: Colors.green ,fontWeight: FontWeight.bold);
 }
