@@ -4,6 +4,7 @@ import 'package:connect_1000/UI/page_main.dart';
 import 'package:connect_1000/UI/page_register.dart';
 import 'package:connect_1000/models/profile.dart';
 import 'package:connect_1000/providers/forgotviewmodel.dart';
+import 'package:connect_1000/providers/mainviewmodel.dart';
 import 'package:connect_1000/providers/registerviewmodel.dart';
 import 'package:connect_1000/services/api_services.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,9 @@ void main() {
         ChangeNotifierProvider<ForgotViewmodel>(
         create: (context) => ForgotViewmodel(),
         ),
+        ChangeNotifierProvider<MainViewModel>(
+        create: (context) => MainViewModel(),
+        ),
     ],child:const MyApp()));
 }
 
@@ -41,7 +45,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        '/main':(context) => PageMain(),
+        '/main':(context) => const PageMain(),
         '/login':(context) => PageLogin(),
         '/register':(context) => PageRegister(),
         '/forgot':(context) => PageForgot(),

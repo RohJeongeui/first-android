@@ -10,4 +10,5 @@ class AppConstant{
     fontSize: 16, fontWeight: FontWeight.bold);
   static TextStyle textlogo = GoogleFonts.lato(
     fontSize: 30, color: Colors.green ,fontWeight: FontWeight.bold);
+  static Color mainColor =  Colors.green;
 }

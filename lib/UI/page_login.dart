@@ -59,13 +59,13 @@ class PageLogin extends StatelessWidget {
                         height: 20,
                       ),
                       CustomTextField(
-                        hintText: "Username",
+                        hintText: "Username",//xntruong
                         textController: _emailController, 
                         obscureText: false,
                       ),
                         const SizedBox(height: 10),
                       CustomTextField(
-                        hintText: "Password",
+                        hintText: "Password", //123456789
                         textController: _passwordController, 
                         obscureText: true,
                       ),
