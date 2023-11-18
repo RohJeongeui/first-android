@@ -50,22 +50,22 @@ class PageLogin extends StatelessWidget {
                         ),
                       ),
                           const SizedBox(
-                            height: 30),
+                            height: 10),
                     const Text("Wechat", 
-                       style: TextStyle(fontSize:  50 ,fontWeight: FontWeight.bold, color: Colors.green),),
-                    Text("Đăng nhập tài khoản", 
-                      style: AppConstant.textlogo,),
+                       style: TextStyle(fontSize:  50 ,fontWeight: FontWeight.bold, color: Color.fromARGB(255, 110, 224, 114)),),
+                    const Text("Đăng nhập tài khoản", 
+                      style: TextStyle(fontSize:  30 ,fontWeight: FontWeight.bold, color: Color.fromARGB(255, 110, 224, 114)),),
                       const SizedBox(
                         height: 20,
                       ),
                       CustomTextField(
-                        hintText: "Username",//xntruong
+                        hintText: "Username",//xntruong || ads
                         textController: _emailController, 
                         obscureText: false,
                       ),
                         const SizedBox(height: 10),
                       CustomTextField(
-                        hintText: "Password", //123456789
+                        hintText: "Password", //123456789 || 12345678
                         textController: _passwordController, 
                         obscureText: true,
                       ),

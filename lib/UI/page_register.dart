@@ -72,7 +72,7 @@ class PageRegister extends StatelessWidget {
                                ), 
                               const SizedBox(height: 20,),
                               CustomTextField(textController: _emailController, 
-                                              hintText: 'Email', 
+                                              hintText: 'Email', //nguyenxuantruong@gmail.com | ad@gmail.com
                                               obscureText: false
                               ),
                               const SizedBox(height: 10,),
@@ -83,12 +83,12 @@ class PageRegister extends StatelessWidget {
                               const SizedBox(height: 10,),
                               CustomTextField(textController: _password1Controller, 
                                               hintText: 'Password', 
-                                              obscureText: false
+                                              obscureText: true
                               ),
                               const SizedBox(height: 10,),
                               CustomTextField(textController: _password2Controller, 
                                               hintText: 'Re-password', 
-                                              obscureText: false
+                                              obscureText: true
                               ),
                               const SizedBox(height: 10,),
                               Text(viewmodel.errorMessage ,style: AppConstant.text_error,),

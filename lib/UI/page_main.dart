@@ -1,12 +1,14 @@
 
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:connect_1000/UI/AppConstant.dart';
+import 'package:connect_1000/UI/page_login.dart';
 import 'package:connect_1000/providers/mainviewmodel.dart';
 import 'package:connect_1000/providers/menubarviewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
+import 'page_register.dart';
 import 'suppageandhelp.dart';
 import 'suppagedangxuat.dart';
 import 'suppageprofile.dart';
@@ -36,7 +38,9 @@ class PageMain extends StatelessWidget {
     }else if(viewmodel.activemenu == SPagesupandhelp.idpage){
       body = SPagesupandhelp();
     }else if(viewmodel.activemenu == SPageDangxuat.idpage){
-      body = SPageDangxuat();
+      GestureDetector(
+        onTap: () => Navigator.of(context)
+        .popAndPushNamed(PageLogin.routename));
     }else 
     menuBar.initialize(menutitle);
     return Scaffold(
@@ -45,7 +49,7 @@ class PageMain extends StatelessWidget {
         leading: GestureDetector(
           onTap:  () => viewmodel.toggleMenu(),
           child: const Icon (
-            Icons.menu, color: Colors.white,
+            Icons.menu, color: Color.fromARGB(255, 3, 3, 3),
           ),
         ),),
       body: SafeArea(
@@ -54,7 +58,7 @@ class PageMain extends StatelessWidget {
             Consumer<MenuBarViewModel>(
               builder: (context, menubarmodel, child) {
             return Container(
-                color: Colors.deepOrange[100],
+                color: Color.fromARGB(255, 67, 136, 87),
                 child: Center(
                   child: body,
                   ),
@@ -136,8 +140,8 @@ class menuitemlist extends StatelessWidget {
             ),
           ),
         ),
+        const SizedBox(height: 10,),
         Container(height: 2,width: size.width * 0.6,color: Colors.black,),
-        SizedBox(height: 10,),
         SizedBox(
           height: size.height * 0.6,
           width: size.width * 0.6,

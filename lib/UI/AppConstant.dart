@@ -13,7 +13,7 @@ class AppConstant{
   static TextStyle textbodyfocus = TextStyle(color: Colors.blue[600], 
     fontSize: 20, fontWeight: FontWeight.bold);
   static TextStyle textlogo = GoogleFonts.lato(
-    fontSize: 30, color: Colors.green ,fontWeight: FontWeight.bold);
-  static Color mainColor =  Colors.green;
+    fontSize: 30, color: Color.fromARGB(255, 101, 209, 104) ,fontWeight: FontWeight.bold);
+  static Color mainColor =  Color.fromARGB(255, 86, 158, 89);
   static Color backgroundColor =  Color.fromARGB(255, 210, 232, 236);
 }
