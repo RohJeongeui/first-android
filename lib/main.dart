@@ -5,6 +5,7 @@ import 'package:connect_1000/UI/page_register.dart';
 import 'package:connect_1000/models/profile.dart';
 import 'package:connect_1000/providers/forgotviewmodel.dart';
 import 'package:connect_1000/providers/mainviewmodel.dart';
+import 'package:connect_1000/providers/menubarviewmodel.dart';
 import 'package:connect_1000/providers/registerviewmodel.dart';
 import 'package:connect_1000/services/api_services.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,9 @@ void main() {
         ChangeNotifierProvider<MainViewModel>(
         create: (context) => MainViewModel(),
         ),
+        ChangeNotifierProvider<MenuBarViewModel>(
+        create: (context) => MenuBarViewModel(),
+        ),
     ],child:const MyApp()));
 }
 
@@ -45,7 +49,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        '/main':(context) => const PageMain(),
+        '/main':(context) =>  PageMain(),
         '/login':(context) => PageLogin(),
         '/register':(context) => PageRegister(),
         '/forgot':(context) => PageForgot(),
@@ -56,7 +60,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
-      home:  PageRegister(),
+      home:  PageMain(),
     );
   }
 }

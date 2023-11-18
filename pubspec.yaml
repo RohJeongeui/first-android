@@ -39,7 +39,7 @@ dependencies:
   dio: ^5.3.0
   shared_preferences: ^2.2.2
   google_fonts: ^6.1.0
-
+  avatar_glow: ^2.0.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

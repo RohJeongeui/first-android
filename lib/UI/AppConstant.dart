@@ -8,7 +8,12 @@ class AppConstant{
     fontSize: 16, color: Colors.red, fontStyle: FontStyle.italic);
   static TextStyle textlink = TextStyle(color: Colors.blue[600], 
     fontSize: 16, fontWeight: FontWeight.bold);
+  static TextStyle textbody = const TextStyle(color: Colors.black, 
+    fontSize: 16, fontWeight: FontWeight.bold);
+  static TextStyle textbodyfocus = TextStyle(color: Colors.blue[600], 
+    fontSize: 20, fontWeight: FontWeight.bold);
   static TextStyle textlogo = GoogleFonts.lato(
     fontSize: 30, color: Colors.green ,fontWeight: FontWeight.bold);
   static Color mainColor =  Colors.green;
+  static Color backgroundColor =  Color.fromARGB(255, 210, 232, 236);
 }

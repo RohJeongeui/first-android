@@ -28,7 +28,7 @@ class PageRegister extends StatelessWidget {
          Navigator.pop(context);
           Navigator.push(context, 
                 MaterialPageRoute(
-                  builder: (context) => const PageMain(),
+                  builder: (context) => PageMain(),
                 ));
         },
     );
