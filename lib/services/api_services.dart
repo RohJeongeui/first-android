@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:connect_1000/models/profile.dart';
 import 'package:dio/dio.dart';
 
 class ApiService{
@@ -17,6 +18,26 @@ class ApiService{
   void initialize(){
     _dio = Dio(BaseOptions(responseType: ResponseType.json));
   }
+
+  Future<Response?> getStudentInfo() async{
+    Map <String , String > headers = {
+      'Content-Type' :"applocation/json; charset =UTF-8",
+      'Authorizatiion' :'Bearer '+Profile().token,
+      'Accept':'application/json',
+    };
+    String apiUrl = "https://chocaycanh.club/api/sinhvien/info";
+    try{
+          // ignore: non_constant_identifier_names
+          final Response = await _dio.get(apiUrl,options: Options(headers: headers));
+          if(Response.statusCode == 200 ) {
+            return Response;
+          }
+      } catch(e) {
+        print(e);
+      }
+      return null;
+  }
+
 
   Future<Response?> loginUser(String username , String password) async
   {

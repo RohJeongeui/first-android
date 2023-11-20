@@ -1,5 +1,7 @@
 
+import 'package:connect_1000/models/student.dart';
 import 'package:connect_1000/repositories/login_repositories.dart';
+import 'package:connect_1000/repositories/student_repository.dart';
 import 'package:flutter/material.dart';
 
 class LoginViewModel with ChangeNotifier{
@@ -16,7 +18,9 @@ class LoginViewModel with ChangeNotifier{
         status = 2;
         errorMessage = "Tên đăng nhập hoặc mật khẩu không đúng!";
       }else{
-        status = 3; 
+        status = 3; //dang nhap thanh cong, lay thong tin user student
+        var student = await StudentRespository().getStudentInfo();
+        profile.student = Student.fromStudent(student);
       }
       notifyListeners();
     }catch(e){}

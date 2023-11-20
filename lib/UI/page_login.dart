@@ -21,11 +21,7 @@ class PageLogin extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     if(viewmodel.status == 3){
       Future.delayed(Duration.zero,(){
-         Navigator.pop(context);
-          Navigator.push(context, 
-                MaterialPageRoute(
-                  builder: (context) => PageMain(),
-                ));
+          Navigator.popAndPushNamed(context, PageMain.routename);
       },
     );
     }

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
+import '../models/profile.dart';
 import 'page_register.dart';
 import 'suppageandhelp.dart';
 import 'suppagedangxuat.dart';
@@ -30,6 +31,10 @@ class PageMain extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final viewmodel = Provider.of<MainViewModel>(context);
+    Profile profile = Profile();
+    if(profile.token == ""){ 
+      return PageLogin();
+    }
     Widget body = SPageTrangchu();
     if(viewmodel.activemenu == SPageYourprofile.idpage){
       body = SPageYourprofile();
