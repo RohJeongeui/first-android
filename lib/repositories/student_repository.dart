@@ -6,7 +6,7 @@ class StudentRespository {
   final ApiService api = ApiService();
   Future<Student> getStudentInfo() async{
     Student student = Student();
-    var response = await api.getStudentInfo();
+    var response = await api.getUserInfo();
     if(response != null){
       var data = response.data;
       student = Student.fromJson(data);

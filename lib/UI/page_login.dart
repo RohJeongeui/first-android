@@ -55,7 +55,7 @@ class PageLogin extends StatelessWidget {
                         height: 20,
                       ),
                       CustomTextField(
-                        hintText: "Username",//xntruong || ads
+                        hintText: "Username",//xntruong || ads || boboiiboy(1-9)
                         textController: _emailController, 
                         obscureText: false,
                       ),

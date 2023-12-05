@@ -19,16 +19,17 @@ class ApiService{
     _dio = Dio(BaseOptions(responseType: ResponseType.json));
   }
 
-  Future<Response?> getStudentInfo() async{
+  Future<Response?> getUserInfo() async{
     Map <String , String > headers = {
       'Content-Type' :"applocation/json; charset =UTF-8",
       'Authorizatiion' :'Bearer '+Profile().token,
       'Accept':'application/json',
     };
-    String apiUrl = "https://chocaycanh.club/api/sinhvien/info";
+    String apiUrl = "https://chocaycanh.club/api/me";
     try{
           // ignore: non_constant_identifier_names
-          final Response = await _dio.get(apiUrl,options: Options(headers: headers));
+          final Response = 
+                  await _dio.get(apiUrl,options: Options(headers: headers));
           if(Response.statusCode == 200 ) {
             return Response;
           }
