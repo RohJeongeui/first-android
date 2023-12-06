@@ -1,5 +1,5 @@
-import 'package:connect_1000/models/profile.dart';
-import 'package:connect_1000/models/student.dart';
+
+import 'package:connect_1000/models/student.dart'; 
 import 'package:connect_1000/services/api_services.dart';
 
 // class StudentRespository {

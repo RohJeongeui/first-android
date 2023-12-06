@@ -1,5 +1,6 @@
 import 'package:connect_1000/UI/AppConstant.dart';
 import 'package:connect_1000/UI/custom_ctrl.dart';
+import 'package:connect_1000/UI/page_main.dart';
 import 'package:connect_1000/models/lop.dart';
 import 'package:connect_1000/models/profile.dart';
 import 'package:connect_1000/repositories/lop_repository.dart';
@@ -16,15 +17,26 @@ class PageDangKyLop extends StatefulWidget {
 
 class _PageDangKyLopState extends State<PageDangKyLop> {
   List<Lop>? listlop = [];
+   Profile profile = Profile();
+  String mssv = '';
+  String ten = '';
+  int idlop = 0;
+  String tenlop = '';
+  @override
+  void initState() {
+    // TODO: implement initState
+    mssv = profile.student.mssv;
+    ten = profile.user.first_name;
+    idlop = profile.student.idlop;
+    tenlop = profile.student.tenlop;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size; 
-    Profile profile = Profile();
-    String mssv = profile.student.mssv;
-    String ten = profile.user.first_name;
-    int idlop = profile.student.idlop;
-    String tenlop = profile.student.tenlop;
+   
+    
     
     return Scaffold(
       body: SafeArea(
@@ -105,7 +117,12 @@ class _PageDangKyLopState extends State<PageDangKyLop> {
                           Custom_Button(textButton: "Lưu thông tin")
                       ),
                         const SizedBox(height: 30,),
-                        Text("Rời khỏi trang")
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.popAndPushNamed(context, PageMain.routename);
+                          },
+                          child: Text("Rời khỏi trang", 
+                                      style: AppConstant.textlink,))
 
               ],),
           ),

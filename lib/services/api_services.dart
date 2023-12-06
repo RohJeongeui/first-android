@@ -25,21 +25,35 @@ class ApiService{
       'Authorization' :'Bearer ' + Profile().token,
       'Accept':'application/json',
     };
+    String birthday = "";
     Map<String,dynamic>param = {
       "first_name" : profile.user.first_name,
+      "last_name" : '',
+      "phone" : profile.user.phone,
+      "address" : profile.user.address ?? "",
+      "provinceid" : profile.user.provinceid ,
+      "provincename" : profile.user.provincename ?? "",
+      "districtid" : profile.user.districtid,
+      "districtname" : profile.user.districtname ?? "",
+      "wardid" : profile.user.wardid,
+      "warname" : profile.user.wardname ?? "",
+      "street" : profile.user.address ?? "",
+      'birthday' : birthday,
     };
     String apiUrl = "https://chocaycanh.club/api/me/details";
     try{
           // ignore: non_constant_identifier_names
           final Response = 
-                  await _dio.post(apiUrl,options: Options(headers: headers),data: jsonEncode(param));
+                  await _dio.patch(apiUrl,options: Options(headers: headers),data: jsonEncode(param));
           if(Response.statusCode == 200 ) {
+            print(Response);
             return Response;
           }
       } catch(e) {
         print(e);
       }
   }
+  
   Future<Response?> dangkyLop() async{
     Profile profile  = Profile();
     Map <String , String > headers = {

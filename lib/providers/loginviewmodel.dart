@@ -26,6 +26,7 @@ class LoginViewModel with ChangeNotifier{
         var user = await UserRepository().getUserInfo();
         profile.user = User.fromUser(user);
         status = 3; //dang nhap thanh cong, lay thong tin user student
+        
       }
       notifyListeners();
     }catch(e){}

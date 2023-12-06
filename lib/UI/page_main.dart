@@ -6,7 +6,6 @@ import 'package:connect_1000/UI/page_login.dart';
 import 'package:connect_1000/providers/mainviewmodel.dart';
 import 'package:connect_1000/providers/menubarviewmodel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 import '../models/profile.dart';
