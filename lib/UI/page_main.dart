@@ -1,6 +1,7 @@
 
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:connect_1000/UI/AppConstant.dart';
+import 'package:connect_1000/UI/page_dangkylop.dart';
 import 'package:connect_1000/UI/page_login.dart';
 import 'package:connect_1000/providers/mainviewmodel.dart';
 import 'package:connect_1000/providers/menubarviewmodel.dart';
@@ -9,7 +10,6 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 import '../models/profile.dart';
-import 'page_register.dart';
 import 'suppageandhelp.dart';
 import 'suppagedangxuat.dart';
 import 'suppageprofile.dart';
@@ -35,6 +35,10 @@ class PageMain extends StatelessWidget {
     if(profile.token == ""){ 
       return PageLogin();
     }
+    if(profile.student.mssv == ""){
+      return PageDangKyLop();
+    }
+
     Widget body = SPageTrangchu();
     if(viewmodel.activemenu == SPageYourprofile.idpage){
       body = SPageYourprofile();

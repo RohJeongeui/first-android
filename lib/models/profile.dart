@@ -1,4 +1,5 @@
 import 'package:connect_1000/models/student.dart';
+import 'package:connect_1000/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile{
@@ -11,6 +12,7 @@ class Profile{
   late SharedPreferences _pref;
   late String token;
   Student student = Student();
+  User user = User();
     Future <void> initialize() async {
       _pref = await SharedPreferences.getInstance();
       token = "";
