@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:connect_1000/models/profile.dart';
 import 'package:dio/dio.dart';
 
