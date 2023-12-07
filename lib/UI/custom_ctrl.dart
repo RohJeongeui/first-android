@@ -230,7 +230,7 @@ class _CustomInputTextFormFieldState extends State<CustomInputTextFormField> {
         children: [
           Text(
             widget.title,
-            style: AppConstant.textbody,
+            style: AppConstant.textfancyheader_2,
           ),
           status == 0
               ? GestureDetector(
@@ -241,7 +241,7 @@ class _CustomInputTextFormFieldState extends State<CustomInputTextFormField> {
                   },
                   child: Text(
                     widget.value == "" ? "Không có" : widget.value,
-                    style: AppConstant.textbodyfocus,
+                    style: AppConstant.textbody,
                   ),
                 )
               : Row(
@@ -251,8 +251,8 @@ class _CustomInputTextFormFieldState extends State<CustomInputTextFormField> {
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
-                          color: Colors.black),
-                      width: widget.width - 40,
+                          color: Colors.grey[200]),
+                      width: widget.width - 50,
                       child: TextFormField(
                         keyboardType: widget.type,
                         onChanged: (value) {

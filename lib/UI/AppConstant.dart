@@ -9,7 +9,9 @@ class AppConstant {
       fontWeight: FontWeight.bold);
 
   static TextStyle textfancyheader_2 = GoogleFonts.lato(
-      fontSize: 18, color: const Color.fromARGB(150, 100, 100, 100));
+      fontSize: 18,
+      color: const Color.fromARGB(150, 100, 100, 100),
+      fontWeight: FontWeight.bold);
 
   static TextStyle text_error = const TextStyle(
       fontSize: 16, color: Colors.red, fontStyle: FontStyle.italic);

@@ -32,7 +32,7 @@ class SPageYourprofile extends StatelessWidget {
                 padding: const EdgeInsets.all(15.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children:[
+                  children: [
                     CustomInputTextFormField(
                       title: 'Số điện thoại',
                       value: profile.user.phone,

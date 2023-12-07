@@ -9,11 +9,12 @@ class SPageSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap:() => MainViewModel().closeMenu(),
+      onTap: () => MainViewModel().closeMenu(),
       child: Container(
-        color: AppConstant.backgroundColor, 
-        child: Center(
-          child: Text("Settings"),)),
+          color: AppConstant.backgroundColor,
+          child: Center(
+            child: Text("Settings"),
+          )),
     );
   }
 }
