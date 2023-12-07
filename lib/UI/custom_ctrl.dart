@@ -4,96 +4,96 @@ import 'package:flutter/material.dart';
 import '../models/profile.dart';
 import 'AppConstant.dart';
 
-class CustomInputTextFormField extends StatefulWidget {
-  CustomInputTextFormField({
-    super.key,
-    required this.width,
-    required this.title,
-    required this.value,
-    required this.callback,
-    this.type = TextInputType.text,
-  });
+// class CustomInputTextFormField extends StatefulWidget {
+//   CustomInputTextFormField({
+//     super.key,
+//     required this.width,
+//     required this.title,
+//     required this.value,
+//     required this.callback,
+//     this.type = TextInputType.text,
+//   });
 
-  final double width;
-  final String title;
-  final String value;
-  final TextInputType type;
-  final Function(String output) callback;
-  @override
-  State<CustomInputTextFormField> createState() =>
-      _CustomInputTextFormFieldState();
-}
+//   final double width;
+//   final String title;
+//   final String value;
+//   final TextInputType type;
+//   final Function(String output) callback;
+//   @override
+//   State<CustomInputTextFormField> createState() =>
+//       _CustomInputTextFormFieldState();
+// }
 
-class _CustomInputTextFormFieldState extends State<CustomInputTextFormField> {
-  int status = 0;
-  String output = "";
+// class _CustomInputTextFormFieldState extends State<CustomInputTextFormField> {
+//   int status = 0;
+//   String output = "";
 
-  @override
-  void initState() {
-    output = widget.value;
-  }
+//   @override
+//   void initState() {
+//     output = widget.value;
+//   }
 
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          widget.title,
-          style: AppConstant.textfancyheader_2,
-        ),
-        status == 0
-            ? GestureDetector(
-                onTap: () {
-                  setState(() {
-                    status = 1;
-                  });
-                },
-                child: Text(
-                  widget.value == "" ? "Khong co!" : widget.value,
-                  style: AppConstant.textbody,
-                ),
-              )
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: Colors.grey[200]),
-                    width: widget.width - 50,
-                    child: TextFormField(
-                      keyboardType: widget.type,
-                      decoration: InputDecoration(border: InputBorder.none),
-                      initialValue: output,
-                      onChanged: (value) {
-                        setState(() {
-                          output = value;
-                        });
-                      },
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        status = 0;
-                        widget.callback(output);
-                      });
-                    },
-                    child: Icon(
-                      Icons.save,
-                      size: 15,
-                    ),
-                  )
-                ],
-              ),
-        Divider(
-          thickness: 1,
-        )
-      ],
-    );
-  }
-}
+//   Widget build(BuildContext context) {
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Text(
+//           widget.title,
+//           style: AppConstant.textfancyheader_2,
+//         ),
+//         status == 0
+//             ? GestureDetector(
+//                 onTap: () {
+//                   setState(() {
+//                     status = 1;
+//                   });
+//                 },
+//                 child: Text(
+//                   widget.value == "" ? "Khong co!" : widget.value,
+//                   style: AppConstant.textbody,
+//                 ),
+//               )
+//             : Row(
+//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                 children: [
+//                   Container(
+//                     padding: EdgeInsets.symmetric(horizontal: 10),
+//                     decoration: BoxDecoration(
+//                         borderRadius: BorderRadius.circular(12),
+//                         color: Colors.grey[200]),
+//                     width: widget.width - 50,
+//                     child: TextFormField(
+//                       keyboardType: widget.type,
+//                       decoration: InputDecoration(border: InputBorder.none),
+//                       initialValue: output,
+//                       onChanged: (value) {
+//                         setState(() {
+//                           output = value;
+//                         });
+//                       },
+//                     ),
+//                   ),
+//                   GestureDetector(
+//                     onTap: () {
+//                       setState(() {
+//                         status = 0;
+//                         widget.callback(output);
+//                       });
+//                     },
+//                     child: Icon(
+//                       Icons.save,
+//                       size: 15,
+//                     ),
+//                   )
+//                 ],
+//               ),
+//         Divider(
+//           thickness: 1,
+//         )
+//       ],
+//     );
+//   }
+// }
 
 class CustomInputDropDown extends StatefulWidget {
   CustomInputDropDown({
@@ -180,6 +180,105 @@ class _CustomInputDropDownState extends State<CustomInputDropDown> {
                           status = 0;
                         });
                       }),
+                ),
+          Divider(
+            thickness: 1,
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class CustomInputTextFormField extends StatefulWidget {
+  const CustomInputTextFormField({
+    super.key,
+    required this.width,
+    required this.title,
+    required this.value,
+    required this.callback,
+    this.type = TextInputType.text,
+  });
+
+  final double width;
+  final String title;
+  final String value;
+  final TextInputType type;
+  final Function(String output) callback;
+
+  @override
+  State<CustomInputTextFormField> createState() =>
+      _CustomInputTextFormFieldState();
+}
+
+class _CustomInputTextFormFieldState extends State<CustomInputTextFormField> {
+  int status = 0;
+  String output = "";
+
+  @override
+  void initState() {
+    output = widget.value;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: widget.width,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            widget.title,
+            style: AppConstant.textbody,
+          ),
+          status == 0
+              ? GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      status = 1;
+                    });
+                  },
+                  child: Text(
+                    widget.value == "" ? "Không có" : widget.value,
+                    style: AppConstant.textbodyfocus,
+                  ),
+                )
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: Colors.black),
+                      width: widget.width - 40,
+                      child: TextFormField(
+                        keyboardType: widget.type,
+                        onChanged: (value) {
+                          setState(() {
+                            output = value;
+                            widget.callback(output);
+                          });
+                        },
+                        decoration: InputDecoration(border: InputBorder.none),
+                        initialValue: output,
+                        style: AppConstant.textbodyfocus,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          status = 0;
+                          widget.callback(output);
+                        });
+                      },
+                      child: Icon(
+                        Icons.save,
+                        size: 18,
+                      ),
+                    )
+                  ],
                 ),
           Divider(
             thickness: 1,
