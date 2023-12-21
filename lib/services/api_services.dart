@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:connect_1000/models/profile.dart';
 import 'package:dio/dio.dart';
+import 'package:http/http.dart' as http;
 
 class ApiService {
   static final ApiService _instance = ApiService._internal();
@@ -17,6 +18,106 @@ class ApiService {
   void initialize() {
     _dio = Dio(BaseOptions(responseType: ResponseType.json));
   }
+
+  // Future<List<dynamic>?> getlistCity() async {
+  //   Profile profile = Profile();
+  //   String api_url = "https://chocaycanh.club/api/getjstinh";
+  //   Map<String, String> headers = {
+  //     'Content-Type': "applocation/json; charset =UTF-8",
+  //     'Authorization': 'Bearer ' + Profile().token,
+  //     'Accept': 'application/json',
+  //   };
+  //   var client = http.Client();
+  //   try {
+  //     var response = await client.get(Uri.parse(api_url), headers: headers);
+  //     if (response.statusCode == 200) {
+  //       var data = jsonDecode(response.body);
+  //       return data;
+  //     }
+  //   } catch (e) {
+  //     return null;
+  //   }
+  // }
+  Future<List<dynamic>?> getlistCity() async {
+    Profile profile = Profile();
+    String api_url = "https://chocaycanh.club/api/getjstinh";
+    Map<String, String> headers = {
+      'Content-Type': "application/json; charset=UTF-8",
+      'Authorization': 'Bearer ' + Profile().token,
+      'Accept': 'application/json'
+    };
+    var client = http.Client();
+    try {
+      var response = await client.get(Uri.parse(api_url), headers: headers);
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        return data;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<List<dynamic>?> getlistDistrict(int id) async {
+    Profile profile = Profile();
+    String api_url =
+        "https://chocaycanh.club/api/getjshuyen?id=" + id.toString();
+    Map<String, String> headers = {
+      'Content-Type': "applocation/json; charset =UTF-8",
+      'Authorization': 'Bearer ' + Profile().token,
+      'Accept': 'application/json',
+    };
+    var client = http.Client();
+    try {
+      var response = await client.get(Uri.parse(api_url), headers: headers);
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        return data;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+  
+  Future<List<dynamic>?> getlistWard(int id) async {
+    Profile profile = Profile();
+    String api_url = "https://chocaycanh.club/api/getjsxa?id=" + id.toString();
+    Map<String, String> headers = {
+      'Content-type': "application/json; charset=UTF-8",
+      'Authorization': 'Bearer ' + Profile().token,
+      'Accept': 'application/json',
+    };
+    var client = http.Client();
+    try {
+      var response = await client.get(Uri.parse(api_url), headers: headers);
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        return data;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  // Future<List<dynamic>?> getlistWard(int id) async {
+  //   Profile profile = Profile();
+  //   String api_url = "https://chocaycanh.club/api/getjsxa?id=" + id.toString();
+  //   Map<String, String> headers = {
+  //     'Content-Type': "applocation/json; charset =UTF-8",
+  //     'Authorization': 'Bearer ' + Profile().token,
+  //     'Accept': 'application/json',
+  //   };
+  //   var client = http.Client();
+  //   try {
+  //     var response = await client.get(Uri.parse(api_url), headers: headers);
+  //     if (response.statusCode == 200) {
+  //       var data = jsonDecode(response.body);
+  //       return data;
+  //     }
+  //   } catch (e) {
+  //     return null;
+  //   }
+  // }
 
   Future<Response?> updateProfile() async {
     Profile profile = Profile();

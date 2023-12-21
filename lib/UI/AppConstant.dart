@@ -9,7 +9,7 @@ class AppConstant {
       fontWeight: FontWeight.bold);
 
   static TextStyle textfancyheader_2 = GoogleFonts.lato(
-      fontSize: 18,
+      fontSize: 15,
       color: const Color.fromARGB(150, 100, 100, 100),
       fontWeight: FontWeight.bold);
 
@@ -30,11 +30,11 @@ class AppConstant {
 
   static TextStyle textlogo = GoogleFonts.lato(
       fontSize: 30,
-      color: Color.fromARGB(255, 101, 209, 104),
+      color: const Color.fromARGB(255, 101, 209, 104),
       fontWeight: FontWeight.bold);
 
-  static Color mainColor = Color.fromARGB(255, 86, 158, 89);
-  static Color backgroundColor = Color.fromARGB(255, 210, 232, 236);
+  static Color mainColor = const Color.fromARGB(255, 86, 158, 89);
+  static Color backgroundColor = const Color.fromARGB(255, 210, 232, 236);
   static bool isDate(String str) {
     try {
       var inputFormat = DateFormat('dd/MM/yyyy');

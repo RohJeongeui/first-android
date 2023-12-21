@@ -48,14 +48,14 @@ class _PageDangKyLopState extends State<PageDangKyLop> {
                   'Thêm thông tin của bạn',
                   style: AppConstant.textlogo,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Text(
                   'Hay dien day du thong tin. Ban khong the roi khoi trang nay neu chua dien day du!',
                   style: AppConstant.text_error,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 CustomInputTextFormField(
@@ -95,7 +95,7 @@ class _PageDangKyLopState extends State<PageDangKyLop> {
                               },
                             );
                           } else {
-                            return Text('loi xay ra');
+                            return const Text('loi xay ra');
                           }
                         },
                       )
@@ -122,7 +122,7 @@ class _PageDangKyLopState extends State<PageDangKyLop> {
                       await UserRepository().updateProfile();
                       await StudentRepository().dangkyLop();
                     },
-                    child: Custom_Button(textButton: "Lưu thông tin")),
+                    child: const Custom_Button(textButton: "Lưu thông tin")),
                 const SizedBox(
                   height: 30,
                 ),

@@ -37,13 +37,13 @@ class PageMain extends StatelessWidget {
       return PageDangKyLop();
     }
 
-    Widget body = SPageTrangchu();
+    Widget body = const SPageTrangchu();
     if (viewmodel.activemenu == SPageYourprofile.idpage) {
-      body = SPageYourprofile();
+      body = const SPageYourprofile();
     } else if (viewmodel.activemenu == SPageSettings.idpage) {
-      body = SPageSettings();
+      body = const SPageSettings();
     } else if (viewmodel.activemenu == SPagesupandhelp.idpage) {
-      body = SPagesupandhelp();
+      body = const SPagesupandhelp();
     } else if (viewmodel.activemenu == SPageDangxuat.idpage) {
       GestureDetector(
           onTap: () =>
@@ -159,7 +159,7 @@ class MenuItemlist extends StatelessWidget {
           height: 10,
         ),
         Container(
-          height: 2,
+          height: 1,
           width: size.width * 0.6,
           color: Colors.black,
         ),

@@ -47,16 +47,17 @@ class PageLogin extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     const Text(
-                      "Wechat",
+                      "Quản lý sinh viên",
                       style: TextStyle(
-                          fontSize: 50,
+                          fontSize: 40,
                           fontWeight: FontWeight.bold,
                           color: Color.fromARGB(255, 110, 224, 114)),
                     ),
+                    const SizedBox(height: 10),
                     const Text(
                       "Đăng nhập tài khoản",
                       style: TextStyle(
-                          fontSize: 30,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Color.fromARGB(255, 110, 224, 114)),
                     ),

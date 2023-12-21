@@ -3,6 +3,7 @@ import 'package:connect_1000/UI/page_login.dart';
 import 'package:connect_1000/UI/page_main.dart';
 import 'package:connect_1000/UI/page_register.dart';
 import 'package:connect_1000/models/profile.dart';
+import 'package:connect_1000/providers/diachiviewmodel.dart';
 import 'package:connect_1000/providers/forgotviewmodel.dart';
 import 'package:connect_1000/providers/mainviewmodel.dart';
 import 'package:connect_1000/providers/menubarviewmodel.dart';
@@ -39,6 +40,9 @@ void main() {
     ),
     ChangeNotifierProvider<ProfileViewModel>(
       create: (context) => ProfileViewModel(),
+    ),
+    ChangeNotifierProvider<DiachiModel>(
+      create: (context) => DiachiModel(),
     ),
   ], child: const MyApp()));
 }

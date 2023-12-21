@@ -1,4 +1,5 @@
 import 'package:connect_1000/models/profile.dart';
+import 'package:connect_1000/providers/diachiviewmodel.dart';
 import 'package:connect_1000/providers/profileviewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,60 +11,164 @@ import 'custom_ctrl.dart';
 class SPageYourprofile extends StatelessWidget {
   const SPageYourprofile({super.key});
   static int idpage = 1;
+  // XFile? image;
+
+  Future<void> init(DiachiModel dcmodel, ProfileViewModel viewModel) async {
+    Profile profile = Profile();
+
+    if (dcmodel.listCity.isEmpty ||
+        dcmodel.curCityid != profile.user.provinceid ||
+        dcmodel.curDistid != profile.user.districtid ||
+        dcmodel.curWardid != profile.user.wardid) {
+      viewModel.displaySpinner();
+      await dcmodel.initialize(profile.user.provinceid, profile.user.districtid,
+          profile.user.wardid);
+      viewModel.hideSpinner();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final viewmodel = Provider.of<ProfileViewModel>(context);
+    final dcmodel = Provider.of<DiachiModel>(context);
     final size = MediaQuery.of(context).size;
     final profile = Profile();
+    Future.delayed(Duration.zero, () => init(dcmodel, viewmodel));
     return GestureDetector(
       onTap: () => MainViewModel().closeMenu(),
       child: Container(
           color: Colors.white,
-          child: Column(
+          child: Stack(
             children: [
-              const SizedBox(
-                height: 5,
+              Column(
+                children: [
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  // start header
+                  Create_header(size, profile, viewmodel),
+                  // end header
+
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CustomInputTextFormField(
+                              width: size.width * 0.4,
+                              title: 'Số điện thoại',
+                              value: profile.user.phone,
+                              callback: (output) {
+                                profile.user.phone = output;
+                                viewmodel.updatescreen();
+                              },
+                              type: TextInputType.phone,
+                            ),
+                            CustomInputTextFormField(
+                              width: size.width * 0.4,
+                              title: 'Ngày sinh',
+                              value: profile.user.birthday,
+                              callback: (output) {
+                                if (AppConstant.isDate(output)) {
+                                  profile.user.birthday = output;
+                                }
+                                viewmodel.updatescreen();
+                              },
+                              type: TextInputType.datetime,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CustomPlaceDropDown(
+                                width: size.width * 0.4,
+                                title: 'Thành phố/Tỉnh',
+                                valueid: profile.user.provinceid,
+                                valuename: profile.user.provincename,
+                                callback: ((outputid, outputname) async {
+                                  viewmodel.displaySpinner();
+                                  profile.user.provinceid = outputid;
+                                  profile.user.provincename = outputname;
+                                  await dcmodel.setCity(outputid);
+                                  viewmodel.hideSpinner();
+                                }),
+                                list: dcmodel.listCity),
+                            CustomPlaceDropDown(
+                                width: size.width * 0.4,
+                                title: "Quận/Huyện: ",
+                                valueid: profile.user.districtid,
+                                valuename: profile.user.districtname,
+                                callback: ((outputid, outputname) async {
+                                  viewmodel.displaySpinner();
+                                  profile.user.districtid = outputid;
+                                  profile.user.districtname = outputname;
+                                  await dcmodel.setDistrict(outputid);
+                                  profile.user.wardid = 0;
+                                  profile.user.wardname = "Không có";
+                                  viewmodel.setModified();
+                                  viewmodel.hideSpinner();
+                                }),
+                                list: dcmodel.listDistrict)
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CustomPlaceDropDown(
+                                width: size.width * 0.4,
+                                title: "Phường/Xã",
+                                valueid: profile.user.wardid,
+                                valuename: profile.user.wardname,
+                                callback: ((outputid, outputname) async {
+                                  viewmodel.displaySpinner();
+                                  profile.user.wardid = outputid;
+                                  profile.user.wardname = outputname;
+                                  await dcmodel.setWard(outputid);
+                                  viewmodel.setModified();
+                                  viewmodel.hideSpinner();
+                                }),
+                                list: dcmodel.listWard),
+                            CustomInputTextFormField(
+                              title: 'Tên đường/Số nhà',
+                              value: profile.user.address,
+                              width: size.width * 0.4,
+                              callback: (output) {
+                                profile.user.address = output;
+                                viewmodel.setModified();
+                                viewmodel.updatescreen();
+                              },
+                              type: TextInputType.streetAddress,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        // SizedBox(
+                        //   height: size.width * 0.3,
+                        //   width: size.width * 0.3,
+                        //   child: QrImageView(
+                        //     data: '{userid:' + profile.user.id.toString() + '}',
+                        //     version: QrVersions.auto,
+                        //     gapless: false,
+                        //   ),
+                        // )
+                      ],
+                    ),
+                  )
+                ],
               ),
-              // start header
-              Create_header(size, profile),
-              // end header
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CustomInputTextFormField(
-                      title: 'Số điện thoại',
-                      value: profile.user.phone,
-                      width: size.width * 0.45,
-                      callback: (output) {
-                        profile.user.phone = output;
-                        viewmodel.updateScreen();
-                      },
-                      type: TextInputType.phone,
-                    ),
-                    CustomInputTextFormField(
-                      title: 'Ngày sinh',
-                      value: profile.user.birthday,
-                      width: size.width * 0.45,
-                      callback: (output) {
-                        if (AppConstant.isDate(output)) {
-                          profile.user.birthday = output;
-                        }
-                        viewmodel.updateScreen();
-                      },
-                      type: TextInputType.datetime,
-                    ),
-                  ],
-                ),
-              )
+              viewmodel.status == 1 ? CustomSpinner(size: size) : Container(),
             ],
           )),
     );
   }
 
-  Container Create_header(Size size, Profile profile) {
+  Container Create_header(
+      Size size, Profile profile, ProfileViewModel viewModel) {
     return Container(
       height: size.height * 0.21,
       width: double.infinity, //Rong max
@@ -76,7 +181,7 @@ class SPageYourprofile extends StatelessWidget {
             topRight: Radius.circular(80)),
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Column(
