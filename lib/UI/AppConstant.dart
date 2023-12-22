@@ -32,6 +32,16 @@ class AppConstant {
       fontSize: 30,
       color: const Color.fromARGB(255, 101, 209, 104),
       fontWeight: FontWeight.bold);
+  static TextStyle textbodyWhite = const TextStyle(
+    color: Colors.white,
+    fontSize: 16,
+  );
+
+  static TextStyle textbodyWhiteBold = const TextStyle(
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
+    fontSize: 16,
+  );
 
   static Color mainColor = const Color.fromARGB(255, 86, 158, 89);
   static Color backgroundColor = const Color.fromARGB(255, 210, 232, 236);

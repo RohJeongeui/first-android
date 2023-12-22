@@ -1,17 +1,21 @@
+import 'dart:io';
+
 import 'package:connect_1000/models/profile.dart';
 import 'package:connect_1000/providers/diachiviewmodel.dart';
 import 'package:connect_1000/providers/profileviewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 import '../providers/mainviewmodel.dart';
 import 'AppConstant.dart';
 import 'custom_ctrl.dart';
 
 class SPageYourprofile extends StatelessWidget {
-  const SPageYourprofile({super.key});
+  SPageYourprofile({super.key});
   static int idpage = 1;
-  // XFile? image;
+  XFile? image;
 
   Future<void> init(DiachiModel dcmodel, ProfileViewModel viewModel) async {
     Profile profile = Profile();
@@ -50,115 +54,118 @@ class SPageYourprofile extends StatelessWidget {
                   // end header
 
                   Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      padding: const EdgeInsets.all(15.0),
+                      child: SingleChildScrollView(
+                        child: Column(
                           children: [
-                            CustomInputTextFormField(
-                              width: size.width * 0.4,
-                              title: 'Số điện thoại',
-                              value: profile.user.phone,
-                              callback: (output) {
-                                profile.user.phone = output;
-                                viewmodel.updatescreen();
-                              },
-                              type: TextInputType.phone,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                CustomInputTextFormField(
+                                  width: size.width * 0.4,
+                                  title: 'Số điện thoại',
+                                  value: profile.user.phone,
+                                  callback: (output) {
+                                    profile.user.phone = output;
+                                    viewmodel.updatescreen();
+                                  },
+                                  type: TextInputType.phone,
+                                ),
+                                CustomInputTextFormField(
+                                  width: size.width * 0.4,
+                                  title: 'Ngày sinh',
+                                  value: profile.user.birthday,
+                                  callback: (output) {
+                                    if (AppConstant.isDate(output)) {
+                                      profile.user.birthday = output;
+                                    }
+                                    viewmodel.updatescreen();
+                                  },
+                                  type: TextInputType.datetime,
+                                ),
+                              ],
                             ),
-                            CustomInputTextFormField(
-                              width: size.width * 0.4,
-                              title: 'Ngày sinh',
-                              value: profile.user.birthday,
-                              callback: (output) {
-                                if (AppConstant.isDate(output)) {
-                                  profile.user.birthday = output;
-                                }
-                                viewmodel.updatescreen();
-                              },
-                              type: TextInputType.datetime,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                CustomPlaceDropDown(
+                                    width: size.width * 0.4,
+                                    title: 'Thành phố/Tỉnh',
+                                    valueid: profile.user.provinceid,
+                                    valuename: profile.user.provincename,
+                                    callback: ((outputid, outputname) async {
+                                      viewmodel.displaySpinner();
+                                      profile.user.provinceid = outputid;
+                                      profile.user.provincename = outputname;
+                                      await dcmodel.setCity(outputid);
+                                      viewmodel.hideSpinner();
+                                    }),
+                                    list: dcmodel.listCity),
+                                CustomPlaceDropDown(
+                                    width: size.width * 0.4,
+                                    title: "Quận/Huyện: ",
+                                    valueid: profile.user.districtid,
+                                    valuename: profile.user.districtname,
+                                    callback: ((outputid, outputname) async {
+                                      viewmodel.displaySpinner();
+                                      profile.user.districtid = outputid;
+                                      profile.user.districtname = outputname;
+                                      await dcmodel.setDistrict(outputid);
+                                      profile.user.wardid = 0;
+                                      profile.user.wardname = "Không có";
+                                      viewmodel.setModified();
+                                      viewmodel.hideSpinner();
+                                    }),
+                                    list: dcmodel.listDistrict)
+                              ],
                             ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                CustomPlaceDropDown(
+                                    width: size.width * 0.4,
+                                    title: "Phường/Xã",
+                                    valueid: profile.user.wardid,
+                                    valuename: profile.user.wardname,
+                                    callback: ((outputid, outputname) async {
+                                      viewmodel.displaySpinner();
+                                      profile.user.wardid = outputid;
+                                      profile.user.wardname = outputname;
+                                      await dcmodel.setWard(outputid);
+                                      viewmodel.setModified();
+                                      viewmodel.hideSpinner();
+                                    }),
+                                    list: dcmodel.listWard),
+                                CustomInputTextFormField(
+                                  title: 'Tên đường/Số nhà',
+                                  value: profile.user.address,
+                                  width: size.width * 0.4,
+                                  callback: (output) {
+                                    profile.user.address = output;
+                                    viewmodel.setModified();
+                                    viewmodel.updatescreen();
+                                  },
+                                  type: TextInputType.streetAddress,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            SizedBox(
+                              height: size.width * 0.3,
+                              width: size.width * 0.3,
+                              child: QrImageView(
+                                data: '{userid:' +
+                                    profile.user.id.toString() +
+                                    '}',
+                                version: QrVersions.auto,
+                                gapless: false,
+                              ),
+                            )
                           ],
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            CustomPlaceDropDown(
-                                width: size.width * 0.4,
-                                title: 'Thành phố/Tỉnh',
-                                valueid: profile.user.provinceid,
-                                valuename: profile.user.provincename,
-                                callback: ((outputid, outputname) async {
-                                  viewmodel.displaySpinner();
-                                  profile.user.provinceid = outputid;
-                                  profile.user.provincename = outputname;
-                                  await dcmodel.setCity(outputid);
-                                  viewmodel.hideSpinner();
-                                }),
-                                list: dcmodel.listCity),
-                            CustomPlaceDropDown(
-                                width: size.width * 0.4,
-                                title: "Quận/Huyện: ",
-                                valueid: profile.user.districtid,
-                                valuename: profile.user.districtname,
-                                callback: ((outputid, outputname) async {
-                                  viewmodel.displaySpinner();
-                                  profile.user.districtid = outputid;
-                                  profile.user.districtname = outputname;
-                                  await dcmodel.setDistrict(outputid);
-                                  profile.user.wardid = 0;
-                                  profile.user.wardname = "Không có";
-                                  viewmodel.setModified();
-                                  viewmodel.hideSpinner();
-                                }),
-                                list: dcmodel.listDistrict)
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            CustomPlaceDropDown(
-                                width: size.width * 0.4,
-                                title: "Phường/Xã",
-                                valueid: profile.user.wardid,
-                                valuename: profile.user.wardname,
-                                callback: ((outputid, outputname) async {
-                                  viewmodel.displaySpinner();
-                                  profile.user.wardid = outputid;
-                                  profile.user.wardname = outputname;
-                                  await dcmodel.setWard(outputid);
-                                  viewmodel.setModified();
-                                  viewmodel.hideSpinner();
-                                }),
-                                list: dcmodel.listWard),
-                            CustomInputTextFormField(
-                              title: 'Tên đường/Số nhà',
-                              value: profile.user.address,
-                              width: size.width * 0.4,
-                              callback: (output) {
-                                profile.user.address = output;
-                                viewmodel.setModified();
-                                viewmodel.updatescreen();
-                              },
-                              type: TextInputType.streetAddress,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        // SizedBox(
-                        //   height: size.width * 0.3,
-                        //   width: size.width * 0.3,
-                        //   child: QrImageView(
-                        //     data: '{userid:' + profile.user.id.toString() + '}',
-                        //     version: QrVersions.auto,
-                        //     gapless: false,
-                        //   ),
-                        // )
-                      ],
-                    ),
-                  )
+                      ))
                 ],
               ),
               viewmodel.status == 1 ? CustomSpinner(size: size) : Container(),
@@ -188,28 +195,59 @@ class SPageYourprofile extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.star,
                     color: Colors.yellow,
                   ),
                   Text(
                     profile.student.diem.toString(),
-                    style: AppConstant.textbody_2,
+                    style: AppConstant.textbodyWhite,
                   )
                 ],
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Custom_avatar(size: size),
+                child: viewModel.updateavatar == 1 && image != null
+                    ? Stack(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(100),
+                            child: SizedBox(
+                              width: 100,
+                              height: 100,
+                              child: Image.file(
+                                File(image!.path),
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 100,
+                            height: 100,
+                            alignment: Alignment.center,
+                            child: GestureDetector(
+                              onTap: () {
+                                viewModel.uploadAvatar(image!);
+                              },
+                              child: Container(
+                                  color: Colors.white,
+                                  child: Icon(size: 30, Icons.save)),
+                            ),
+                          )
+                        ],
+                      )
+                    : GestureDetector(
+                        onTap: () async {
+                          final ImagePicker _picker = ImagePicker();
+                          image = await _picker.pickImage(
+                              source: ImageSource.gallery);
+                          viewModel.setUpdateAvatar();
+                        },
+                        child: CustomAvatar1(size: size)),
               ),
             ],
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0),
-          ),
           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 profile.user.first_name,
@@ -218,44 +256,62 @@ class SPageYourprofile extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'Mssv : ',
-                    style: AppConstant.textbody_2,
+                    'MSSV: ',
+                    style: AppConstant.textbodyWhite,
                   ),
                   Text(
                     profile.student.mssv,
-                    style: AppConstant.textbody_2,
+                    style: AppConstant.textbodyWhiteBold,
                   ),
                 ],
               ),
               Row(
                 children: [
                   Text(
-                    'Lớp : ',
-                    style: AppConstant.textbody_2,
+                    'Lớp: ',
+                    style: AppConstant.textbodyWhite,
                   ),
                   Text(
                     profile.student.tenlop,
-                    style: AppConstant.textbody_2,
+                    style: AppConstant.textbodyWhiteBold,
                   ),
                   profile.student.duyet == 0
                       ? Text(
-                          " (Chưa duyệt)",
-                          style: AppConstant.text_error,
+                          "(Chưa Duyệt)",
+                          style: AppConstant.textbodyWhite,
                         )
-                      : Text(""),
+                      : Text(''),
                 ],
               ),
               Row(
                 children: [
                   Text(
-                    'Vai trò : ',
-                    style: AppConstant.textbody_2,
+                    'Vai trò: ',
+                    style: AppConstant.textbodyWhite,
                   ),
                   profile.user.role_id == 4
-                      ? Text('Sinh viên', style: AppConstant.textbody_2)
-                      : Text('Giảng viên', style: AppConstant.textbody_2)
+                      ? Text(
+                          "Sinh viên",
+                          style: AppConstant.textbodyWhiteBold,
+                        )
+                      : Text(
+                          "Giảng viên",
+                          style: AppConstant.textbodyWhiteBold,
+                        ),
                 ],
               ),
+              SizedBox(
+                width: size.width * 0.4,
+                child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: viewModel.modified == 1
+                        ? GestureDetector(
+                            onTap: () {
+                              viewModel.updateProfile();
+                            },
+                            child: Icon(Icons.save))
+                        : Container()),
+              )
             ],
           )
         ],

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:connect_1000/models/profile.dart';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
@@ -18,7 +19,18 @@ class ApiService {
   void initialize() {
     _dio = Dio(BaseOptions(responseType: ResponseType.json));
   }
-
+   Future<void> uploadAvatarToSever(File imageFile) async {
+    Profile profile = Profile();
+    Map<String, String> headers = {
+      'Content-Type': "application/json; charset=UTF-8",
+      'Authorization': 'Bearer ' + Profile().token,
+      'Accept': 'application/json'
+    };
+    FormData formData = FormData.fromMap(
+        {'file': await MultipartFile.fromFile(imageFile.path)});
+    await _dio.post('https://chocaycanh.club/public/api/me/avatar',
+        data: formData, options: Options(headers: headers));
+  }
   // Future<List<dynamic>?> getlistCity() async {
   //   Profile profile = Profile();
   //   String api_url = "https://chocaycanh.club/api/getjstinh";
@@ -127,6 +139,15 @@ class ApiService {
       'Accept': 'application/json',
     };
     String birthday = "";
+    if (profile.user.birthday.isNotEmpty) {
+      String temp = profile.user.birthday;
+      int ti = temp.indexOf('/', 0);
+      String subday = temp.substring(0, ti);
+      int tm = temp.indexOf('/', ti + 1);
+      String submonth = temp.substring(ti + 1, tm);
+      String subyear = temp.substring(tm + 1, temp.length);
+      birthday = subyear + '-' + submonth + '-' + subday;
+    }
     Map<String, dynamic> param = {
       "first_name": profile.user.first_name,
       "last_name": '',
@@ -193,13 +214,8 @@ class ApiService {
         return Response;
       }
     } catch (e) {
-      if (e is DioException) {
-        print('Error: $e');
-        print(e.message);
-        print(e.error);
-        print(e.response);
+        print(e);
       }
-    }
     return null;
   }
 

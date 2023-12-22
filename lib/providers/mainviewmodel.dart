@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:connect_1000/providers/loginviewmodel.dart';
 
 class MainViewModel with ChangeNotifier {
   static final MainViewModel _instance = MainViewModel._internal();
@@ -25,6 +26,15 @@ class MainViewModel with ChangeNotifier {
   void setActiveMenu(int index) {
     activemenu = index;
     menustatus = 0;
+    notifyListeners();
+  }
+
+  void logout() {
+    //LoginViewModel._isLoggedIn = false;
+    // Clear data tại đây (ví dụ: xóa thông tin đăng nhập, làm sạch dữ liệu, v.v.)
+    // ...
+
+    // Thông báo cho người nghe về sự thay đổi
     notifyListeners();
   }
 }

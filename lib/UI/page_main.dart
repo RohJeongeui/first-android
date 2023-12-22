@@ -39,12 +39,13 @@ class PageMain extends StatelessWidget {
 
     Widget body = const SPageTrangchu();
     if (viewmodel.activemenu == SPageYourprofile.idpage) {
-      body = const SPageYourprofile();
+      body =  SPageYourprofile();
     } else if (viewmodel.activemenu == SPageSettings.idpage) {
       body = const SPageSettings();
     } else if (viewmodel.activemenu == SPagesupandhelp.idpage) {
       body = const SPagesupandhelp();
     } else if (viewmodel.activemenu == SPageDangxuat.idpage) {
+      Provider.of<MainViewModel>(context, listen: false).logout();
       GestureDetector(
           onTap: () =>
               Navigator.of(context).popAndPushNamed(PageLogin.routename));

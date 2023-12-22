@@ -34,8 +34,9 @@ class _CustomPlaceDropDownState extends State<CustomPlaceDropDown> {
   void initState() {
     outputid = widget.valueid;
     outputname = widget.valuename;
+    super.initState();
   }
-
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: widget.width,
@@ -221,8 +222,9 @@ class _CustomInputDropDownState extends State<CustomInputDropDown> {
   void initState() {
     outputid = widget.valueid;
     outputname = widget.valuename;
+    super.initState();
   }
-
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: widget.width,
@@ -287,6 +289,28 @@ class _CustomInputDropDownState extends State<CustomInputDropDown> {
   }
 }
 
+class CustomAvatar1 extends StatelessWidget {
+  const CustomAvatar1({
+    super.key,
+    required this.size,
+  });
+
+  final Size size;
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(size.height * 0.25),
+      child: Container(
+          width: 100,
+          height: 100,
+          child: Image.network(
+            Profile().user.avatar,
+            fit: BoxFit.cover,
+          )),
+    );
+  }
+}
 class CustomInputTextFormField extends StatefulWidget {
   const CustomInputTextFormField({
     super.key,
@@ -450,9 +474,21 @@ class AppLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Image(
-      image: AssetImage('assets/images/logo.png'),
-      width: 200,
+    // return const Image(
+    //   image: AssetImage('assets/images/logo.png'),
+    //   width: 200,
+    // );
+     final size = MediaQuery.of(context).size;
+    return Column(
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(size.height),
+          child: SizedBox(
+              height: size.height * 0.16,
+              width: size.height * 0.16,
+              child: Image(image: AssetImage('assets/images/logo.png'))),
+        )
+      ],
     );
   }
 }
