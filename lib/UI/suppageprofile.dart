@@ -201,7 +201,7 @@ class SPageYourprofile extends StatelessWidget {
                   ),
                   Text(
                     profile.student.diem.toString(),
-                    style: AppConstant.textbodyWhite,
+                    style: AppConstant.textbody_2,
                   )
                 ],
               ),
@@ -247,7 +247,12 @@ class SPageYourprofile extends StatelessWidget {
               ),
             ],
           ),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.0),
+          ),
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 profile.user.first_name,
@@ -257,11 +262,11 @@ class SPageYourprofile extends StatelessWidget {
                 children: [
                   Text(
                     'MSSV: ',
-                    style: AppConstant.textbodyWhite,
+                    style: AppConstant.textbody_2,
                   ),
                   Text(
                     profile.student.mssv,
-                    style: AppConstant.textbodyWhiteBold,
+                    style: AppConstant.textbody_2,
                   ),
                 ],
               ),
@@ -273,12 +278,12 @@ class SPageYourprofile extends StatelessWidget {
                   ),
                   Text(
                     profile.student.tenlop,
-                    style: AppConstant.textbodyWhiteBold,
+                    style: AppConstant.textbody_2,
                   ),
                   profile.student.duyet == 0
                       ? Text(
                           "(Chưa Duyệt)",
-                          style: AppConstant.textbodyWhite,
+                          style: AppConstant.text_error,
                         )
                       : Text(''),
                 ],
@@ -287,17 +292,11 @@ class SPageYourprofile extends StatelessWidget {
                 children: [
                   Text(
                     'Vai trò: ',
-                    style: AppConstant.textbodyWhite,
+                    style: AppConstant.textbody_2,
                   ),
                   profile.user.role_id == 4
-                      ? Text(
-                          "Sinh viên",
-                          style: AppConstant.textbodyWhiteBold,
-                        )
-                      : Text(
-                          "Giảng viên",
-                          style: AppConstant.textbodyWhiteBold,
-                        ),
+                      ? Text('Sinh viên', style: AppConstant.textbody_2)
+                      : Text('Giảng viên', style: AppConstant.textbody_2)
                 ],
               ),
               SizedBox(
