@@ -8,8 +8,6 @@ import 'package:flutter/material.dart';
 class LoginViewModel with ChangeNotifier {
   String errorMessage = "";
   int status = 0;
-  bool _isLoggedIn = false;
-  bool get isLoggedIn => _isLoggedIn;
   LoginRepository loginRepo = LoginRepository();
   Future<void> login(String username, String password) async {
     status = 1;
@@ -26,7 +24,7 @@ class LoginViewModel with ChangeNotifier {
         var user = await UserRepository().getUserInfo();
         profile.user = User.fromUser(user);
         status = 3; //dang nhap thanh cong, lay thong tin user student
-        _isLoggedIn = true;
+        
       }
       notifyListeners();
     } catch (e) {}

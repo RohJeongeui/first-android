@@ -36,6 +36,7 @@ class _CustomPlaceDropDownState extends State<CustomPlaceDropDown> {
     outputname = widget.valuename;
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -101,98 +102,6 @@ class _CustomPlaceDropDownState extends State<CustomPlaceDropDown> {
   }
 }
 
-// class CustomInputTextFormField extends StatefulWidget {
-//   CustomInputTextFormField({
-//     super.key,
-//     required this.width,
-//     required this.title,
-//     required this.value,
-//     required this.callback,
-//     this.type = TextInputType.text,
-//   });
-
-//   final double width;
-//   final String title;
-//   final String value;
-//   final TextInputType type;
-//   final Function(String output) callback;
-//   @override
-//   State<CustomInputTextFormField> createState() =>
-//       _CustomInputTextFormFieldState();
-// }
-
-// class _CustomInputTextFormFieldState extends State<CustomInputTextFormField> {
-//   int status = 0;
-//   String output = "";
-
-//   @override
-//   void initState() {
-//     output = widget.value;
-//   }
-
-//   Widget build(BuildContext context) {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Text(
-//           widget.title,
-//           style: AppConstant.textfancyheader_2,
-//         ),
-//         status == 0
-//             ? GestureDetector(
-//                 onTap: () {
-//                   setState(() {
-//                     status = 1;
-//                   });
-//                 },
-//                 child: Text(
-//                   widget.value == "" ? "Khong co!" : widget.value,
-//                   style: AppConstant.textbody,
-//                 ),
-//               )
-//             : Row(
-//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                 children: [
-//                   Container(
-//                     padding: const EdgeInsets.symmetric(horizontal: 10),
-//                     decoration: BoxDecoration(
-//                         borderRadius: BorderRadius.circular(12),
-//                         color: Colors.grey[200]),
-//                     width: widget.width - 50,
-//                     child: TextFormField(
-//                       keyboardType: widget.type,
-//                       decoration:
-//                           const InputDecoration(border: InputBorder.none),
-//                       initialValue: output,
-//                       onChanged: (value) {
-//                         setState(() {
-//                           output = value;
-//                         });
-//                       },
-//                     ),
-//                   ),
-//                   GestureDetector(
-//                     onTap: () {
-//                       setState(() {
-//                         status = 0;
-//                         widget.callback(output);
-//                       });
-//                     },
-//                     child: const Icon(
-//                       Icons.save,
-//                       size: 15,
-//                     ),
-//                   )
-//                 ],
-//               ),
-//         const Divider(
-//           thickness: 1,
-//         )
-//       ],
-//     );
-//   }
-// }
-
 class CustomInputDropDown extends StatefulWidget {
   CustomInputDropDown({
     super.key,
@@ -224,6 +133,7 @@ class _CustomInputDropDownState extends State<CustomInputDropDown> {
     outputname = widget.valuename;
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -300,10 +210,10 @@ class CustomAvatar1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(size.height * 0.25),
-      child: Container(
-          width: 100,
-          height: 100,
+      borderRadius: BorderRadius.circular(size.height),
+      child: SizedBox(
+          width: size.height * 0.15,
+          height: size.height * 0.15,
           child: Image.network(
             Profile().user.avatar,
             fit: BoxFit.cover,
@@ -311,6 +221,7 @@ class CustomAvatar1 extends StatelessWidget {
     );
   }
 }
+
 class CustomInputTextFormField extends StatefulWidget {
   const CustomInputTextFormField({
     super.key,
@@ -395,14 +306,14 @@ class _CustomInputTextFormFieldState extends State<CustomInputTextFormField> {
                           widget.callback(output);
                         });
                       },
-                      child: Icon(
+                      child: const Icon(
                         Icons.save,
                         size: 18,
                       ),
                     )
                   ],
                 ),
-          Divider(
+          const Divider(
             thickness: 1,
           )
         ],
@@ -478,7 +389,7 @@ class AppLogo extends StatelessWidget {
     //   image: AssetImage('assets/images/logo.png'),
     //   width: 200,
     // );
-     final size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Column(
       children: [
         ClipRRect(

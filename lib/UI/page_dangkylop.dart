@@ -6,6 +6,7 @@ import 'package:connect_1000/models/profile.dart';
 import 'package:connect_1000/repositories/lop_repository.dart';
 import 'package:connect_1000/repositories/student_repository.dart';
 import 'package:connect_1000/repositories/user_repository.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class PageDangKyLop extends StatefulWidget {
@@ -128,6 +129,7 @@ class _PageDangKyLopState extends State<PageDangKyLop> {
                 ),
                 GestureDetector(
                     onTap: () {
+                      profile.token = "";
                       Navigator.popAndPushNamed(context, PageMain.routename);
                     },
                     child: Text(

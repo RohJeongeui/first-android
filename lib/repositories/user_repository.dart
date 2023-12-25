@@ -4,6 +4,7 @@ import 'package:connect_1000/services/api_services.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as img;
+
 class UserRepository {
   Future<User> getUserInfo() async {
     User user = User();
@@ -23,12 +24,13 @@ class UserRepository {
     }
     return kq;
   }
+
   Future<void> uploadAvatar(XFile image) async {
     ApiService api = ApiService();
     if (image != null) {
       final img.Image originalImage =
           img.decodeImage(File(image.path).readAsBytesSync())!;
-      final img.Image resizedImage = img.copyResize(originalImage, width: 300);
+      final img.Image resizedImage = img.copyResize(originalImage, width: 170);
 
       final File resizedFile =
           File(image.path.replaceAll('jpg', '_resized.jpg'))
